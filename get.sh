@@ -3,7 +3,7 @@
 while :
 do
   date
-  echo "--- Start Call API"
+  echo "--- Start Speedtest"
   python3 speedtest.py
   RET=$?
   if [ ${RET} -ne 0 ];
