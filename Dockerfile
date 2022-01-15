@@ -1,34 +1,31 @@
-FROM python:3.7-slim-bullseye
+ARG ARCH=
 
-ARG BUILD_DATE
+# Pull base image
+FROM ubuntu:latest
 
-LABEL \
-  maintainer="Logan Marchione <logan@loganmarchione.com>" \
-  org.opencontainers.image.authors="Logan Marchione <logan@loganmarchione.com>" \
-  org.opencontainers.image.title="docker-speedtest-influxdb" \
-  org.opencontainers.image.description="Runs Ookla's Speedtest CLI program in Docker, sends the results to InfluxDB" \
-  org.opencontainers.image.created=$BUILD_DATE
+# Labels
+LABEL MAINTAINER="https://github.com/dbsqp/"
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    gnupg2 \
-    tzdata && \
-    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest && \
-    rm -rf /var/lib/apt/lists/* && \
-    adduser --system speedtest
+# Setup external package-sources
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-dev \
+    python3-setuptools \
+    python3-pip \
+    python3-virtualenv \
+    iputils-ping\
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/* 
 
-USER speedtest
+# RUN pip install setuptools
+RUN pip3 install pytz influxdb-client
 
-WORKDIR /usr/scr/app
+# Environment vars
+ENV PYTHONIOENCODING=utf-8
 
-COPY requirements.txt .
+# Copy files
+ADD speedtest.py /
+ADD get.sh /
 
-RUN pip3 install -r requirements.txt
-
-COPY speedtest.py .
-
-COPY VERSION /
-
-CMD ["python", "-u", "./speedtest.py"]
+# Run
+CMD ["/bin/bash","/get.sh"]
