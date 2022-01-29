@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
+# encoding=utf-8
 
-import datetime
-import json
-import os
-import subprocess
-import time
-import socket
-import sys
-
+from pytz import timezone
+from datetime import datetime
 from influxdb_client import InfluxDBClient, Point, WriteOptions
 from influxdb_client.client.write_api import 
+import json
+import os
+import sys
+import subprocess
+import platform
+
 
 # debug enviroment variables
 showraw = False
@@ -29,6 +30,7 @@ influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
     
 speedtest_server = os.getenv("SPEEDTEST_SERVER")
 host = os.getenv("HOST", socket.gethostname())
+
 
 # hard encoded envionment varables
 
@@ -77,13 +79,17 @@ speedtest_server_country = results["server"]["country"]
 speedtest_server_host = results["server"]["host"]
 
 # Print results to Docker logs
-print("download     ", speed_down, "bps")
-print("  upload     ", speed_up, "bps")
-print("ping latency ", ping_latency, "ms")
-print("ping jitter  ", ping_jitter, "ms")
+print("download ", speed_down, "bps")
+print("  upload ", speed_up, "bps")
+print(" latency ", ping_latency, "ms")
+print(" jitter  ", ping_jitter, "ms")
 if debug:
-    print("server info  ", speedtest_server_id, speedtest_server_name, speedtest_server_location, speedtest_server_country, speedtest_server_host)
-    print("URL          ", result_url)
+    print("server id       ", speedtest_server_id)
+    print("server name     ", speedtest_server_name)
+    print("server location ", speedtest_server_location)
+    print("server country  ", speedtest_server_country)
+    print("server host     ", speedtest_server_host)
+    print("result URL      ", result_url)
 
 senddata={}
 
