@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 # encoding=utf-8
 
+
+
 from pytz import timezone
 from datetime import datetime
 from influxdb_client import InfluxDBClient, Point, WriteOptions
-from influxdb_client.client.write_api import 
+from influxdb_client.client.write_api import SYNCHRONOUS
 import json
 import os
 import sys
+import socket
 import subprocess
 import platform
 
+speedtestPath="/usr/bin/speedtest"
 
 # debug enviroment variables
-showraw = False
 debug_str=os.getenv("DEBUG", None)
 if debug_str is not None:
 	debug = debug_str.lower() == "true"
@@ -29,10 +32,17 @@ influxdb2_token=os.getenv('INFLUXDB2_TOKEN', "token")
 influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
     
 speedtest_server = os.getenv("SPEEDTEST_SERVER")
+spec_down = os.getenv("SPEC_DOWN")
+spec_up = os.getenv("SPEC_UP")
 host = os.getenv("HOST", socket.gethostname())
 
 
 # hard encoded envionment varables
+
+# brew tap teamookla/speedtest
+# brew update
+# brew install speedtest --force
+#speedtestPath="/usr/local/bin/speedtest"
 
 
 # report debug/domac status
@@ -56,17 +66,17 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 if speedtest_server:
     print("Running Speedtest : ", speedtest_server)
     speedtest_server_arg = "--server-id="+speedtest_server
-    rawResults = subprocess.run(['/usr/bin/speedtest', '--accept-license', '--accept-gdpr', '--format=json', speedtest_server_arg], stdout=subprocess.PIPE, text=True, check=True)
+    rawResults = subprocess.run([speedtestPath, '--accept-license', '--accept-gdpr', '--format=json', speedtest_server_arg], stdout=subprocess.PIPE, text=True, check=True)
 else:
     print("Running Speedtest : random server")
-    rawResults = subprocess.run(['/usr/bin/speedtest', '--accept-license', '--accept-gdpr', '--format=json'], stdout=subprocess.PIPE, text=True, check=True)
+    rawResults = subprocess.run([speedtestPath, '--accept-license', '--accept-gdpr', '--format=json'], stdout=subprocess.PIPE, text=True, check=True)
 
 results = json.loads(rawResults.stdout.strip())
 
 
 # Basic values
-speed_down = results["download"]["bandwidth"]
-speed_up = results["upload"]["bandwidth"]
+speed_down = results["download"]["bandwidth"] / 100000.0
+speed_up = results["upload"]["bandwidth"] / 100000.0
 ping_latency = results["ping"]["latency"]
 ping_jitter = results["ping"]["jitter"]
 result_url = results["result"]["url"]
@@ -78,11 +88,26 @@ speedtest_server_location = results["server"]["location"]
 speedtest_server_country = results["server"]["country"]
 speedtest_server_host = results["server"]["host"]
 
+
+#
+if spec_down:
+    percent_down = 100.0 * speed_down / float(spec_down)
+    percent_up = 100.0 * speed_up / float(spec_up)
+
+
 # Print results to Docker logs
-print("download ", speed_down, "bps")
-print("  upload ", speed_up, "bps")
-print(" latency ", ping_latency, "ms")
-print(" jitter  ", ping_jitter, "ms")
+print("   download ", speed_down, "mbps")
+print("     upload ", speed_up, "mbps")
+
+
+if spec_down:
+    print(" download ", percent_down, "% of ", spec_down, " mbps")
+    print("   upload ", percent_up, "% of", spec_up, " mbps")
+
+print("    latency ", ping_latency, "ms")
+print("    jitter  ", ping_jitter, "ms")
+
+
 if debug:
     print("server id       ", speedtest_server_id)
     print("server name     ", speedtest_server_name)
@@ -102,6 +127,11 @@ senddata["fields"]["download"]=speed_down
 senddata["fields"]["upload"]=speed_up
 senddata["fields"]["latency"]=ping_latency
 senddata["fields"]["jitter"]=ping_jitter
+
+if spec_down:
+    senddata["fields"]["download-percent"]=percent_down
+    senddata["fields"]["upload-percent"]=percent_up
+
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
