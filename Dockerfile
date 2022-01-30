@@ -8,6 +8,15 @@ LABEL MAINTAINER="https://github.com/dbsqp/"
 
 # Setup external package-sources
 RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    gnupg2 \
+    --no-install-recommends
+
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+RUN apt-get update && apt-get install speedtest
+    
+RUN apt-get update && apt-get install -y \
     python3 \
     python3-dev \
     python3-setuptools \
@@ -20,8 +29,7 @@ RUN apt-get update && apt-get install -y \
     tzdata --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* 
     
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest
+
 
 # RUN pip install setuptools
 RUN pip3 install pytz influxdb-client
