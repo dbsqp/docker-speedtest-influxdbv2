@@ -10,10 +10,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     gnupg \
+    tzdata \
     debian-archive-keyring && \
-    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
-    
-RUN apt-get update && apt-get install speedtest && \
+    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
+    apt-get update && apt-get install speedtest && \
     rm -rf /var/lib/apt/lists/*
     
 # Setup external package-sources
@@ -29,19 +29,6 @@ RUN apt-get update && apt-get install speedtest && \
 # do pip installs 
 #RUN pip3 install pytz influxdb-client requests
 #datetime json os subprocess time socket sys
-
-# do external package-sources
-#RUN apt-get install -y --no-install-recommends \
-#    iputils-ping \
-#    tzdata \
-#    curl \
-#    ca-certificates \
-#    gnupg2
-
-# do speedtest install
-#RUN curl https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-#    apt-get update && apt-get install -y speedtest && \
-#    rm -rf /var/lib/apt/lists/*
     
 # Environment vars
 ENV PYTHONIOENCODING=utf-8
