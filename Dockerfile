@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     python3-virtualenv \
     iputils-ping\
     ca-certificates \
+    gnupg2 \
     curl \
     tzdata --no-install-recommends && \
     curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
