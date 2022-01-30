@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     gnupg2 \
+    apt-utils \
     --no-install-recommends
 
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
