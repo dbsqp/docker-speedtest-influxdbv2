@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils
 
 # speedtest install
-RUN curl -L -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+RUN curl https://install.speedtest.net/app/cli/install.deb.sh | bash
 RUN apt-get update && apt-get install speedtest
 
 RUN rm -rf /var/lib/apt/lists/*
