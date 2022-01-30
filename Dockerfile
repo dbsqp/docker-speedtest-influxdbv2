@@ -17,20 +17,16 @@ RUN apt-get update && apt-get install -y \
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
 RUN apt-get update && apt-get install speedtest --no-install-recommends
     
-#RUN apt-get update && apt-get install -y \
-#    python3 \
-#    python3-dev \
-#    python3-setuptools \
-#    python3-pip \
-#    python3-virtualenv \
-#    curl \
-#    iputils-ping\
-#    ca-certificates \
-#    gnupg2 \
-#    tzdata --no-install-recommends && \
-#    rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-dev \
+    python3-setuptools \
+    python3-pip \
+    python3-virtualenv \
+    iputils-ping\
+    tzdata --no-install-recommends && rm -rf /var/lib/apt/lists/*
     
-
+    
 
 # RUN pip install setuptools
 RUN pip3 install pytz influxdb-client
