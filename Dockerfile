@@ -1,9 +1,11 @@
 ARG ARCH=
 ARG TARGETPLATFORM
-RUN echo "I'm building for $TARGETPLATFORM"
 
 # Pull base image
 FROM ubuntu:latest
+
+RUN echo "I'm building for $TARGETPLATFORM"
+
 
 # Labels
 LABEL MAINTAINER="https://github.com/dbsqp/"
