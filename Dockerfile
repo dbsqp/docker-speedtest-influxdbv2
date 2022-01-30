@@ -1,4 +1,5 @@
 ARG ARCH=
+ARG TARGETPLATFORM
 
 # Pull base image
 FROM ubuntu:latest
@@ -11,7 +12,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     gnupg \
     debian-archive-keyring
-    
+
+
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then echo "THIS IS AMD64 = x86"
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then echo "THIS IS ARM64 = ARM"
+
+
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
 
 RUN apt-get update && apt-get install speedtest
