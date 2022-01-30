@@ -7,7 +7,7 @@ FROM ubuntu:latest
 LABEL MAINTAINER="https://github.com/dbsqp/"
 
 # Setup external package-sources
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-dev \
     python3-setuptools \
@@ -18,12 +18,12 @@ RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     gnupg2 \
-    apt-utils \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    apt-utils
 
 # speedtest install
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest --no-install-recommends
+    apt-get update && apt-get install speedtest --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
     
 # pip installs
 RUN pip3 install pytz influxdb-client
