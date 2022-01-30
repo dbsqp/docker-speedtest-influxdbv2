@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -z "$SPEEDTEST_PERIOD" ];
+then
+  sleepPeriod=3600
+else
+  sleepPeriod=$SPEEDTEST_PERIOD
+fi
+
 while :
 do
   date
@@ -11,8 +18,9 @@ do
     echo "Exit status not 0"
     echo "Sleep 60 s"
     sleep 60
+    python3 speedtest.py
   fi
   date
-  echo "Sleep 60 mins"
-  sleep 120
+  echo "Sleep $sleepPeriod s"
+  sleep $sleepPeriod
 done
