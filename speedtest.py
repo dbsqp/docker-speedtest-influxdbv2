@@ -91,21 +91,21 @@ speedtest_server_host = results["server"]["host"]
 
 #
 if spec_down:
-    percent_down = 100.0 * speed_down / float(spec_down)
-    percent_up = 100.0 * speed_up / float(spec_up)
+    percent_down = ( 100.0 * speed_down / float(spec_down) ) - 100.0
+    percent_up = ( 100.0 * speed_up / float(spec_up) ) - 100.0
 
 
 # Print results to Docker logs
-print("   download ", speed_down, "mbps")
-print("     upload ", speed_up, "mbps")
+print("   download %.1f mbps" % (speed_down))
+print("     upload %.1f mbps" % (speed_up))
 
 
 if spec_down:
-    print(" download ", percent_down, "% of ", spec_down, " mbps")
-    print("   upload ", percent_up, "% of", spec_up, " mbps")
+    print(" download %+.0f% of %.1f mbps" % (percent_down,spec_down))
+    print("   upload %+.0f% of %.1f mbps" % (percent_up,spec_up))
 
-print("    latency ", ping_latency, "ms")
-print("    jitter  ", ping_jitter, "ms")
+print("    latency %.1f ms" % (ping_latency))
+print("    jitter  %.1f ms" % (ping_jitter))
 
 
 if debug:
@@ -129,8 +129,8 @@ senddata["fields"]["latency"]=ping_latency
 senddata["fields"]["jitter"]=ping_jitter
 
 if spec_down:
-    senddata["fields"]["download-percent"]=percent_down
-    senddata["fields"]["upload-percent"]=percent_up
+    senddata["fields"]["percent-download"]=percent_down
+    senddata["fields"]["percent-upload"]=percent_up
 
 
 if debug:
