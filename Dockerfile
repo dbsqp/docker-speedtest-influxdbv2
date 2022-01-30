@@ -14,7 +14,13 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-virtualenv \
     iputils-ping\
-    --no-install-recommends && \
+    --no-install-recommends \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    tzdata && \
+    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
+    apt-get update && apt-get install speedtest && \
     rm -rf /var/lib/apt/lists/* 
 
 # RUN pip install setuptools
