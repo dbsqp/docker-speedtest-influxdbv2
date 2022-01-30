@@ -112,7 +112,7 @@ if debug:
 
 senddata={}
 
-senddata["measurement"]="isp"
+senddata["measurement"]="speedtest"
 senddata["tags"]={}
 senddata["tags"]["source"]="speedtest.net"
 senddata["tags"]["host"]=host
