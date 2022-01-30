@@ -1,5 +1,6 @@
 ARG ARCH=
 ARG TARGETPLATFORM
+RUN echo "I'm building for $TARGETPLATFORM"
 
 # Pull base image
 FROM ubuntu:latest
@@ -14,8 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     debian-archive-keyring
 
 
-RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then echo "THIS IS AMD64 = x86"
-RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then echo "THIS IS ARM64 = ARM"
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then echo "THIS IS AMD64 = x86"; fi
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then echo "THIS IS ARM64 = ARM"; fi
 
 
 RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
