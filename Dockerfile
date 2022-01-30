@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tzdata && \
     curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
     apt-get update && apt-get install speedtest && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/*
     
     
 # Setup external package-sources
