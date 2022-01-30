@@ -117,10 +117,10 @@ senddata["tags"]={}
 senddata["tags"]["source"]="speedtest.net"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
-senddata["fields"]["download"]=speed_down
-senddata["fields"]["upload"]=speed_up
-senddata["fields"]["latency"]=ping_latency
-senddata["fields"]["jitter"]=ping_jitter
+senddata["fields"]["speed-down"]=speed_down
+senddata["fields"]["speed-up"]=speed_up
+senddata["fields"]["ping-latency"]=ping_latency
+senddata["fields"]["ping-jitter"]=ping_jitter
 
 if spec_down:
     senddata["fields"]["percent-download"]=percent_down
