@@ -21,9 +21,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils
 
 # speedtest install
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+RUN apt-get update && apt-get install speedtest
+
+RUN rm -rf /var/lib/apt/lists/*
     
 # pip installs
 RUN pip3 install pytz influxdb-client
