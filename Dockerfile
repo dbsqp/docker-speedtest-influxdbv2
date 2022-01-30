@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y \
     tzdata --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* 
     
-#curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-#apt-get update && apt-get install speedtest && \
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
+    apt-get update && apt-get install speedtest
 
 # RUN pip install setuptools
 RUN pip3 install pytz influxdb-client
