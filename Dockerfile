@@ -13,14 +13,15 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools \
     python3-pip \
     python3-virtualenv \
+    curl \
     iputils-ping\
     ca-certificates \
     gnupg2 \
-    curl \
     tzdata --no-install-recommends && \
-    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest && \
     rm -rf /var/lib/apt/lists/* 
+    
+#curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
+#apt-get update && apt-get install speedtest && \
 
 # RUN pip install setuptools
 RUN pip3 install pytz influxdb-client
