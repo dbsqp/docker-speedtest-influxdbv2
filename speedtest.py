@@ -89,13 +89,13 @@ speedtest_server_host = results["server"]["host"]
 # Print results to Docker logs
 if spec_down:
     percent_down = ( 100.0 * speed_down / float(spec_down) ) - 100.0
-    print("download %.0f mbps = %+.0f of %.1f mbps" % (speed_down,percent_down,float(spec_down)))
+    print("download %.1f mbps = %+.0f of %.0f mbps" % (speed_down,percent_down,float(spec_down)))
 else:
     print("download %.1f mbps" % (speed_down))
 
 if spec_up:
     percent_up = ( 100.0 * speed_up / float(spec_up) ) - 100.0
-    print("  upload %.0f mbps = %+.0f of %.1f mbps" % (speed_up,percent_up,float(spec_up)))
+    print("  upload %.1f mbps = %+.0f of %.0f mbps" % (speed_up,percent_up,float(spec_up)))
 else:
     print("  upload %.1f mbps" % (speed_up))
 
