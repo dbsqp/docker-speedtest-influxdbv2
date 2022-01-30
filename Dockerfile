@@ -11,11 +11,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     gnupg \
     tzdata \
-    debian-archive-keyring && \
-    curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    apt-get update && apt-get install speedtest && \
-    rm -rf /var/lib/apt/lists/*
+    debian-archive-keyring
     
+RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
+
+RUN apt-get update && apt-get install speedtest && \
+    rm -rf /var/lib/apt/lists/*
+
+
+
 # Setup external package-sources
 #RUN apt-get update && apt-get install -y \
 #    python3 \
