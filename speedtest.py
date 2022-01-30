@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # encoding=utf-8
 
-
-
 from pytz import timezone
 from datetime import datetime
 from influxdb_client import InfluxDBClient, Point, WriteOptions
@@ -88,25 +86,21 @@ speedtest_server_location = results["server"]["location"]
 speedtest_server_country = results["server"]["country"]
 speedtest_server_host = results["server"]["host"]
 
-
-#
+# Print results to Docker logs
 if spec_down:
     percent_down = ( 100.0 * speed_down / float(spec_down) ) - 100.0
+    print("download %.0f mbps = %+.0f of %.1f mbps" % (speed_down,percent_down,spec_down))
+else:
+    print("download %.1f mbps" % (speed_down))
+
+if spec_up:
     percent_up = ( 100.0 * speed_up / float(spec_up) ) - 100.0
-
-
-# Print results to Docker logs
-print("   download %.1f mbps" % (speed_down))
-print("     upload %.1f mbps" % (speed_up))
-
-
-if spec_down:
-    print(" download %+.0f% of %.1f mbps" % (percent_down,spec_down))
-    print("   upload %+.0f% of %.1f mbps" % (percent_up,spec_up))
+    print("  upload %.0f mbps = %+.0f of %.1f mbps" % (speed_up,percent_up,spec_up))
+else:
+    print("  upload %.1f mbps" % (speed_up))
 
 print("    latency %.1f ms" % (ping_latency))
 print("    jitter  %.1f ms" % (ping_jitter))
-
 
 if debug:
     print("server id       ", speedtest_server_id)
@@ -130,8 +124,9 @@ senddata["fields"]["jitter"]=ping_jitter
 
 if spec_down:
     senddata["fields"]["percent-download"]=percent_down
-    senddata["fields"]["percent-upload"]=percent_up
 
+if spec_up:
+    senddata["fields"]["percent-upload"]=percent_up
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
