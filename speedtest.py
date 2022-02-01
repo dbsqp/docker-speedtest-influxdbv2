@@ -124,9 +124,11 @@ senddata["fields"]["ping-jitter"]=ping_jitter
 
 if spec_down:
     senddata["fields"]["percent-download"]=percent_down
+    senddata["fields"]["spec-download"]=float(spec_down)
 
 if spec_up:
     senddata["fields"]["percent-upload"]=percent_up
+    senddata["fields"]["spec-up"]=float(spec_up)
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
