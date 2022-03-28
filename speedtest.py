@@ -115,7 +115,8 @@ senddata={}
 
 senddata["measurement"]="speedtest"
 senddata["tags"]={}
-senddata["tags"]["source"]="speedtest.net"
+senddata["tags"]["source"]="docker speedtest-influxdbv2"
+senddata["tags"]["origin"]="speedtest.net"
 senddata["tags"]["direction"]="download"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
@@ -135,7 +136,8 @@ senddata={}
 
 senddata["measurement"]="speedtest"
 senddata["tags"]={}
-senddata["tags"]["source"]="speedtest.net"
+senddata["tags"]["source"]="docker speedtest-influxdbv2"
+senddata["tags"]["origin"]="speedtest.net"
 senddata["tags"]["direction"]="upload"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
@@ -155,7 +157,8 @@ senddata={}
 
 senddata["measurement"]="speedtest"
 senddata["tags"]={}
-senddata["tags"]["source"]="speedtest.net"
+senddata["tags"]["source"]="docker speedtest-influxdbv2"
+senddata["tags"]["origin"]="speedtest.net"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
 senddata["fields"]["latency"]=ping_latency
