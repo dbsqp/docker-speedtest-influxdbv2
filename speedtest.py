@@ -110,6 +110,47 @@ if debug:
     print("server host     ", speedtest_server_host)
     print("result URL      ", result_url)
 
+# downloads
+senddata={}
+
+senddata["measurement"]="speedtest"
+senddata["tags"]={}
+senddata["tags"]["source"]="speedtest.net"
+senddata["tags"]["direction"]="download"
+senddata["tags"]["host"]=host
+senddata["fields"]={}
+senddata["fields"]["measured"]=speed_down
+
+if spec_down:
+    senddata["fields"]["percent"]=percent_down
+    senddata["fields"]["specified"]=float(spec_down)
+
+if debug:
+    print ("INFLUX: "+influxdb2_bucket)
+    print (json.dumps(senddata,indent=4))
+write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[senddata])
+
+# uploads
+senddata={}
+
+senddata["measurement"]="speedtest"
+senddata["tags"]={}
+senddata["tags"]["source"]="speedtest.net"
+senddata["tags"]["direction"]="upload"
+senddata["tags"]["host"]=host
+senddata["fields"]={}
+senddata["fields"]["measured"]=speed_up
+
+if spec_up:
+    senddata["fields"]["percent"]=percent_up
+    senddata["fields"]["specified"]=float(spec_up)
+
+if debug:
+    print ("INFLUX: "+influxdb2_bucket)
+    print (json.dumps(senddata,indent=4))
+write_api.write(bucket=influxdb2_bucket, org=influxdb2_org, record=[senddata])
+
+# other
 senddata={}
 
 senddata["measurement"]="speedtest"
@@ -117,18 +158,8 @@ senddata["tags"]={}
 senddata["tags"]["source"]="speedtest.net"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
-senddata["fields"]["speed-down"]=speed_down
-senddata["fields"]["speed-up"]=speed_up
-senddata["fields"]["ping-latency"]=ping_latency
-senddata["fields"]["ping-jitter"]=ping_jitter
-
-if spec_down:
-    senddata["fields"]["percent-download"]=percent_down
-    senddata["fields"]["spec-download"]=float(spec_down)
-
-if spec_up:
-    senddata["fields"]["percent-upload"]=percent_up
-    senddata["fields"]["spec-up"]=float(spec_up)
+senddata["fields"]["latency"]=ping_latency
+senddata["fields"]["jitter"]=ping_jitter
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
