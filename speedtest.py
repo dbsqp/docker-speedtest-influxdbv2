@@ -87,15 +87,15 @@ speedtest_server_country = results["server"]["country"]
 speedtest_server_host = results["server"]["host"]
 
 # Print results to Docker logs
-if spec_down:
-    percent_down = ( 100.0 * speed_down / float(spec_down) ) - 100.0
-    print("download %.1f mbps = %+.0f of %.0f mbps" % (speed_down,percent_down,float(spec_down)))
+if expected_down:
+    percent_down = ( 100.0 * speed_down / float(expected_down) ) - 100.0
+    print("download %.1f mbps = %+.0f of %.0f mbps" % (speed_down,percent_down,float(expected_down)))
 else:
     print("download %.1f mbps" % (speed_down))
 
 if spec_up:
-    percent_up = ( 100.0 * speed_up / float(spec_up) ) - 100.0
-    print("  upload %.1f mbps = %+.0f of %.0f mbps" % (speed_up,percent_up,float(spec_up)))
+    percent_up = ( 100.0 * speed_up / float(expected_up) ) - 100.0
+    print("  upload %.1f mbps = %+.0f of %.0f mbps" % (speed_up,percent_up,float(expected_up)))
 else:
     print("  upload %.1f mbps" % (speed_up))
 
@@ -120,11 +120,11 @@ senddata["tags"]["origin"]="speedtest.net"
 senddata["tags"]["direction"]="download"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
-senddata["fields"]["measured"]=speed_down
+senddata["fields"]["data-rate"]=speed_down
 
 if spec_down:
     senddata["fields"]["percent"]=percent_down
-    senddata["fields"]["specified"]=float(spec_down)
+    senddata["fields"]["expected"]=float(expected_down)
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
@@ -141,11 +141,11 @@ senddata["tags"]["origin"]="speedtest.net"
 senddata["tags"]["direction"]="upload"
 senddata["tags"]["host"]=host
 senddata["fields"]={}
-senddata["fields"]["measured"]=speed_up
+senddata["fields"]["data-rate"]=speed_up
 
 if spec_up:
     senddata["fields"]["percent"]=percent_up
-    senddata["fields"]["specified"]=float(spec_up)
+    senddata["fields"]["expected"]=float(expected_up)
 
 if debug:
     print ("INFLUX: "+influxdb2_bucket)
