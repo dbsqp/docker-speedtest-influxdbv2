@@ -22,7 +22,7 @@ $ docker run -d \
  --name "Influx-Speedtest" \
 dbsqp/speedtest-influxdbv2:latest
 ```
-Note: SPEC_DOWN, SPEC_UP, SPEEDTEST_SERVER and SPEEDTEST_PERIOD are optional. Default and recomended period is 1 hour = 3600.
+Note: EXPECTED_DOWN, EXPECTED_UP, SPEEDTEST_SERVER and SPEEDTEST_PERIOD are optional. Default and recomended period is 1 hour = 3600.
 
 
 ## Debug
