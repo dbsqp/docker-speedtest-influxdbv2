@@ -10,8 +10,8 @@ Setup InfluxDBv2, create bucket and create a token with write permissions for sa
 ## Docker Setup
 ```
 $ docker run -d \
- -e SPEC_DOWN="<expected isp upload>" \
- -e SPEC_UP="<expected isp upload>" \
+ -e EXPECTED_DOWN="<expected isp upload>" \
+ -e EXPECTED_UP="<expected isp upload>" \
  -e SPEEDTEST_SERVER="<Speedtest server id>" \
  -e SPEEDTEST_PERIOD="60" \
  -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
