@@ -30,8 +30,8 @@ influxdb2_token=os.getenv('INFLUXDB2_TOKEN', "token")
 influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
     
 speedtest_server = os.getenv("SPEEDTEST_SERVER")
-spec_down = os.getenv("SPEC_DOWN")
-spec_up = os.getenv("SPEC_UP")
+expected_down = os.getenv("EXPECTED_DOWN")
+expected_up = os.getenv("EXPECTED_UP")
 host = os.getenv("HOST", socket.gethostname())
 
 
