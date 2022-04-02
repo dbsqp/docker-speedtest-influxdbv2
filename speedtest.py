@@ -122,7 +122,7 @@ senddata["tags"]["host"]=host
 senddata["fields"]={}
 senddata["fields"]["data-rate"]=speed_down
 
-if spec_down:
+if expected_down:
     senddata["fields"]["percent"]=percent_down
     senddata["fields"]["expected"]=float(expected_down)
 
@@ -143,7 +143,7 @@ senddata["tags"]["host"]=host
 senddata["fields"]={}
 senddata["fields"]["data-rate"]=speed_up
 
-if spec_up:
+if expected_up:
     senddata["fields"]["percent"]=percent_up
     senddata["fields"]["expected"]=float(expected_up)
 
