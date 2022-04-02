@@ -14,7 +14,7 @@ $ docker run -d \
  -e EXPECTED_UP="<expected isp upload>" \
  -e SPEEDTEST_SERVER="<Speedtest server id>" \
  -e SPEEDTEST_PERIOD="60" \
- -e INFLUXDB2_HOST="<INFLUXDBv2 SERVER>" \
+ -e INFLUXDB2_HOST="<influxDBv2 SERVER>" \
  -e INFLUXDB2_PORT="8086" \
  -e INFLUXDB2_ORG="Home" \
  -e INFLUXDB2_TOKEN="" \
