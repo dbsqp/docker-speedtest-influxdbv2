@@ -8,6 +8,7 @@ Note does nor build for arm64 target, see dockerfile and workflow yml for for mo
 Setup InfluxDBv2, create bucket and create a token with write permissions for said bucket.
 
 ## Docker Setup
+https://hub.docker.com/repository/docker/dbsqp/speedtest-influxdbv2
 ```
 $ docker run -d \
  -e EXPECTED_DOWN="<expected isp upload>" \
