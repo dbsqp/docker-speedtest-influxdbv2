@@ -1,4 +1,4 @@
-Do speedtest using Ookla's official CLI program and push results into influxdb bucket. Based on loganmarchione's docker-speedtest-influxdbv2.
+Docker image to do speedtest using Ookla's official CLI program and push results into a influxdb bucket. Based on loganmarchione's docker-speedtest-influxdbv2.
 Updated for aligned Influxdb format with my other API InfluxDB containers.
 
 Note does nor build for arm64 target, see dockerfile and workflow yml for for more info.
