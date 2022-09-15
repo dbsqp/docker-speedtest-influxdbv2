@@ -28,7 +28,14 @@ influxdb2_port=int(os.getenv('INFLUXDB2_PORT', "8086"))
 influxdb2_org=os.getenv('INFLUXDB2_ORG', "Home")
 influxdb2_token=os.getenv('INFLUXDB2_TOKEN', "token")
 influxdb2_bucket=os.getenv('INFLUXDB2_BUCKET', "DEV")
-    
+
+influxdb2_ssl_str=os.getenv('INFLUXDB2_SSL', "False")
+if influxdb2_ssl_str is not None:
+    influxdb2_ssl = influxdb2_ssl_str.lower() == "true"
+else:
+    influxdb2_ssl = False
+
+# speedtest envionment variables
 speedtest_server = os.getenv("SPEEDTEST_SERVER")
 expected_down = os.getenv("EXPECTED_DOWN")
 expected_up = os.getenv("EXPECTED_UP")
@@ -51,7 +58,11 @@ else:
 
 
 # influxDBv2
-influxdb2_url="http://" + influxdb2_host + ":" + str(influxdb2_port)
+if influxdb2_ssl_str:
+    influxdb2_url="https://" + influxdb2_host + ":" + str(influxdb2_port)
+else:
+    influxdb2_url="http://" + influxdb2_host + ":" + str(influxdb2_port)
+
 if debug:
 	print ( "influx: "+influxdb2_url )
 	print ( "bucket: "+influxdb2_bucket )
