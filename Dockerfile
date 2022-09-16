@@ -19,11 +19,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #ARG TARGETPLATFORM
 #RUN echo "I'm building for $TARGETPLATFORM"
 #RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then echo "THIS IS AMD64 = x86"; fi
-#https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-x86_64.tgz
+#https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz
 #RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then echo "THIS IS ARM64 = ARM"; fi
-#https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-aarch64.tgz
+#https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz
 
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash &&\
+RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash &&\
     apt-get update && apt-get install speedtest
 
 
