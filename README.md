@@ -27,6 +27,7 @@ dbsqp/speedtest-influxdbv2:latest
 EXPECTED_DOWN, EXPECTED_UP, SPEEDTEST_SERVER and SPEEDTEST_PERIOD are optional. Default and recomended period is 1 hour = 3600.
 ```
  -e INFLUXDB2_SSL="True" \
+ -e INFLUXDB2_SSL_VERIFY="False" \
 ```
 
 
