@@ -35,6 +35,12 @@ if influxdb2_ssl_str is not None:
 else:
     influxdb2_ssl = False
 
+influxdb2_ssl_verify_str=os.getenv('INFLUXDB2_SSL_VERIFY', "False")
+if influxdb2_ssl_verify_str is not None:
+    influxdb2_ssl_verify = influxdb2_ssl_verify_str.lower() == "true"
+else:
+    influxdb2_ssl_verify = False
+
 # speedtest envionment variables
 speedtest_server = os.getenv("SPEEDTEST_SERVER")
 expected_down = os.getenv("EXPECTED_DOWN")
@@ -55,6 +61,13 @@ if debug:
 	print ( " debug: TRUE" )
 else:
 	print ( " debug: FALSE" )
+	
+if influxdb2_ssl_verify:
+	influxdb2_ssl_verify_str="true"
+	print ( "verify: TRUE" )
+else:
+	influxdb2_ssl_verify_str="false"
+	print ( "verify: FALSE" )
 
 
 # influxDBv2
@@ -66,8 +79,9 @@ else:
 if debug:
 	print ( "influx: "+influxdb2_url )
 	print ( "bucket: "+influxdb2_bucket )
+	print ( "verify: "+influxdb2_ssl_verify_str )
 
-client = InfluxDBClient(url=influxdb2_url, token=influxdb2_token, org=influxdb2_org)
+client = InfluxDBClient(url=influxdb2_url, token=influxdb2_token, org=influxdb2_org, verify_ssl=influxdb2_ssl_verify_str)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
 
