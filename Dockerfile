@@ -23,9 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then echo "THIS IS ARM64 = ARM"; fi
 #https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz
 
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash && \
-    mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://packagecloud.io/ookla/speedtest-cli/gpgkey | gpg --dearmor > /etc/apt/keyrings/ookla_speedtest-cli-archive-keyring.gpg && \
+RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
     apt-get update && apt-get install speedtest
 
 
