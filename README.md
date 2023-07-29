@@ -1,7 +1,9 @@
 Docker image to do speedtest using Ookla's official CLI program and push results into a influxdb bucket. Based on loganmarchione's docker-speedtest-influxdbv2.
 Updated for aligned Influxdb format with my other API InfluxDB containers.
 
-Note does nor build for arm64 target, see dockerfile and workflow yml for for more info.
+Note does not build for arm64 target, see dockerfile and workflow yml for for more info.
+
+Note telegraf now has an internet_speed plugin https://github.com/influxdata/telegraf/tree/master/plugins/inputs/internet_speed
 
 ## InfluxDBv2 Setup
 
