@@ -11,6 +11,7 @@ import sys
 import socket
 import subprocess
 import platform
+import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
